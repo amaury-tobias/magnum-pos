@@ -1,29 +1,44 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div class="flex">
+    <sidebar />
+    <div class="bar2">Search</div>
   </div>
+  <main>
+    <div class="pt-6 pr-6 absolute right-0 top-0">
+      <button class="focus:outline-none p-2 rounded-full bg-gray-200">
+        <span>
+          <v-mdi name="mdi-moon-waning-crescent" />
+        </span>
+      </button>
+    </div>
+    <router-view />
+  </main>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+import { defineComponent } from 'vue'
+import { ipcRenderer } from 'electron'
+import Sidebar from '@/components/Sidebar.vue'
 
 export default defineComponent({
-  name: "App",
-  components: {
-    HelloWorld
-  }
-});
+  components: { Sidebar },
+  setup() {
+    const btnClick = () => {
+      console.log('message')
+      ipcRenderer.send('message', 'ping')
+    }
+    return { btnClick }
+  },
+})
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="postcss" scoped>
+.bar2 {
+  @apply bg-gray-200 h-screen p-6 relative inline-block;
+  width: 300px;
+}
+
+main {
+  @apply bg-white rounded-r-lg  w-full h-full p-6;
 }
 </style>
