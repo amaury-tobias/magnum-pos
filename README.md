@@ -1,4 +1,4 @@
-# vue3base
+# magnum-pos
 
 ## Project setup
 ```
